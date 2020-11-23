@@ -1,3 +1,7 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+
 const MAJOR_ARCANA = [
   "0 The Fool",
   "1 The Magician",
@@ -61,18 +65,20 @@ const createDeck = function() {
   return MAJOR_ARCANA.concat(minorArcanaCards())
 }
 
-// minor arcana pattern
-// "https://www.biddytarot.com/tarot-card-meanings/minor-arcana/suit-of-swords/seven-of-swords/"
-
-// major arcana pattern
-// "https://www.biddytarot.com/tarot-card-meanings/major-arcana/devil/"
-
-window.onload = function() {
-  let contentDiv = document.getElementById("tarot-cards");
-  createDeck().forEach((card)=>{
-    pUnit = document.createElement("p")
-    cardTextNode = document.createTextNode(card)
-    pUnit.appendChild(cardTextNode)
-    contentDiv.appendChild(pUnit)
-  })
+function Deck(props) {
+  const cards = props.cards;
+  const listItems = cards.map((card) =>
+    <li>{card}</li>
+  );
+  return (
+    <div>
+      <h1>Tarot Deck</h1>
+      <ul>{listItems}</ul>
+    </div>
+  );
 }
+
+const tarotCards = createDeck()
+ReactDOM.render(
+  <Deck cards={tarotCards} />,  document.getElementById('root')
+);
